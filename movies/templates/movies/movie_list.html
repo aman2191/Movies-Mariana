@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movies@Mariana Tek</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'movies/styles.css' %}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <h1 class="title">Mariana Tek</h1>
+  <hr>
+  <div id="filter-search" class="d-flex justify-content-between align-items-center mb-3">
+    <div class="filter">
+      <label for="genre-filter">Filter by Genre:</label>
+      <select id="genre-filter">
+        <option value="">All</option>
+        {% for genre in genres %}
+          <option value="{{ genre }}">{{ genre }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="search">
+      <label for="title-search">Search by Title:</label>
+      <input type="text" id="title-search" placeholder="Enter movie title">
+    </div>
+  </div>
+
+  <div id="movies-list">
+    {% for movie in movies %}
+      <div class="movie" data-genres="{{ movie.genres }}">
+        <h3>{{ movie.title }}</h3>
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
+        <p>Genre(s): {{ movie.genres }}</p>
+        <p>Rating: {{ movie.rating }}</p>
+        <p>Year Release: {{ movie.year_release }}</p>
+        <p>Metacritic Rating: {{ movie.metacritic_rating }}</p>
+        <p>Runtime: {{ movie.runtime }} mins</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static 'movies/script.js' %}"></script>
+</body>
+</html>
